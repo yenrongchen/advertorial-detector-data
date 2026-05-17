@@ -15,8 +15,6 @@
 * `linksCount`: 外部連結數量
 * `utmLinksCount`: 帶有 UTM 參數的外部連結數量
 * `emojiCount`: Emoji 頻率
-* 特定標點符號頻率
-* 特定促購或商業意圖詞彙詞彙頻率 (ex. CTA 詞彙、折扣詞、推銷詞、推薦詞、營造急迫感詞彙)
 * `withImages`: 是否包含圖片
 * `withVideos`: 是否包含影片
 * `imageCount`: 圖片數量
@@ -25,6 +23,11 @@
 * `videoTextRatio`: 影片文字比例 (每千字)
 * `mediaTextRatio`: 媒體文字比例 (每千字)
 * 情緒特徵
+* 特定標點符號頻率
+* 特定促購或商業意圖詞彙詞彙頻率 
+  * 例：CTA 詞彙、折扣詞、推銷詞、推薦詞、營造急迫感詞彙等
+  * 建議一個種詞彙一個特徵
+  * 建議從 [post_info.json](outputs/post_info.json) 裡面的 content 找，因為是已經有處理過缺失值的內文
 
 
 ### 作者資訊
@@ -41,7 +44,6 @@
 * `subcomDepth`: 平均子留言深度 (子留言數量 / 主留言數量)
 * `firstCommentTimeDiff`: 第一個主留言的時間和發文時間的時間差
 * `first30MinCommentRatio`: 前 30 分鐘內的主、子留言佔總留言比例
-* 留言情緒？
 
 
 ### 作者資訊及行為特徵
@@ -58,11 +60,9 @@
 * `forumEvenness`: 所有貼文的看板之分布均勻度
 * `avgLikes`: 貼文平均讚數
 
-
 #### 註：`edited`、`authorUseNickname`、`withImages`、`withVideos`、`authorHasCreatorBadge`、`authorHasOfficialCreatorBadge` 六個欄位原為布林值，CSV 檔中已被轉換為整數，1 代表 True，0 代表 False
 
 
-### 怎麼處理？
-* `title`: 文章標題
-* `content`: 文章內文
-* `createdAt`: 發表時間
+### 文字資料 (需特殊處理)
+* 文章標題 (`title`)
+* 文章內文 (`content`)
