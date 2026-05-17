@@ -31,7 +31,7 @@
 
 
 ### 作者資訊
-* `authorUseNickname`: 發文者是否為匿名 (待定) (理論上非匿名版權都是 true)
+* `authorUseNickname`: 發文者是否為匿名 (待定) (理論上非匿名版全都是 true，會沒有意義)
 * `authorHasCreatorBadge`: 發文者是否有創作者勳章
 * `authorHasOfficialCreatorBadge`: 發文者是否有官方創作者勳章
 * `authorSuspicious`: 是不是可疑帳號
@@ -50,7 +50,7 @@
 * `timeDiffDays`: 最早與最晚的貼文時間差 (天)
 * `postCount`: 歷史總發文數
 * `postFreq`: 歷史發文頻率 (篇/天)
-* `maxPostsPerDay`: 最大同天發文數
+* `maxPostsPerDay`: 最大單日發文數
 * `maxPostsPer12h`: 最大 12 小時內發文數
 * `postIntervalStd`: 發文時間間隔標準差 (天)
 * `businessHourRatio`: 平日上班時間發文比率
@@ -60,9 +60,10 @@
 * `forumEvenness`: 所有貼文的看板之分布均勻度
 * `avgLikes`: 貼文平均讚數
 
-#### 註：`edited`、`authorUseNickname`、`withImages`、`withVideos`、`authorHasCreatorBadge`、`authorHasOfficialCreatorBadge` 六個欄位原為布林值，CSV 檔中已被轉換為整數，1 代表 True，0 代表 False
-
 
 ### 文字資料 (需特殊處理)
 * 文章標題 (`title`)
 * 文章內文 (`content`)
+
+
+#### 註：`edited`、`authorUseNickname`、`withImages`、`withVideos`、`authorHasCreatorBadge`、`authorHasOfficialCreatorBadge` 六個欄位原為布林值，CSV 檔中已被轉換為整數，1 代表 True，0 代表 False
