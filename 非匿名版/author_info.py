@@ -123,17 +123,17 @@ def main():
 
             authors_info[uid] = {
                 "postCount": post_count,
-                "timeDiffDays": round(diff_days, 8),
-                "postFreq": round(post_count / diff_days, 8) if diff_days > 0 else post_count,
+                "timeDiffDays": diff_days,
+                "postFreq": post_count / diff_days if diff_days > 0 else post_count,
                 "maxPostsPerDay": max_posts_per_day,
                 "maxPostsPer12h": max_posts_per_12h,
-                "postIntervalStd": round(interval_std, 8),
-                "businessHourRatio": round(business_posts / post_count, 8),
-                "weekendRatio": round(weekend_posts / post_count, 8),
-                "travelPostRatio": round(travel_post_count / post_count, 8),
-                "forumVariety": round(forum_variety, 8),
-                "forumEvenness": round(normalized_entropy, 8),
-                "avgLikes": round(likes / post_count, 8),
+                "postIntervalStd": interval_std,
+                "businessHourRatio": business_posts / post_count,
+                "weekendRatio": weekend_posts / post_count,
+                "travelPostRatio": travel_post_count / post_count,
+                "forumVariety": forum_variety,
+                "forumEvenness": normalized_entropy,
+                "avgLikes": likes / post_count,
             }
 
     with open(AUTHORS_INFO_FILE, "w", encoding="utf-8") as f:

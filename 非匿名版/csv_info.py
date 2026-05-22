@@ -6,6 +6,44 @@ AUTHORS_INFO_FILE = "./outputs/authors_info.json"
 COMMENTS_INFO_FILE = "./outputs/comments_info.json"
 OUTPUT_CSV_FILE = "./outputs/dcard_name.csv"
 OUTPUT_FEAT_FILE = "./outputs/data.csv"
+OUTPUT_NEW_FEAT_FILE = "./outputs/data_new.csv"
+
+RATIO_FIELDS = {
+    "linkPerWord",
+    "utmLinkRatio",
+    "emojiPerWord",
+    "authorReplyRatio",
+    "authorReplyLinkRatio",
+    "authorReplyUTMLinkRatio",
+}
+
+RATIO_REPLACED_FIELDS = {
+    "linksCount",
+    "utmLinksCount",
+    "emojiCount",
+    "authorReplyCount",
+    "authorReplyLinkCount",
+    "authorReplyUTMLinkCount",
+}
+
+def fill_first_comment_time_diff_and_drop_missing(rows):
+    values = [
+        row.get("firstCommentTimeDiff")
+        for row in rows
+        if row.get("firstCommentTimeDiff") not in (None, "")
+    ]
+    fill_value = max(values) * 2 if values else None
+
+    cleaned_rows = []
+    for row in rows:
+        new_row = dict(row)
+        if new_row.get("firstCommentTimeDiff") in (None, "") and fill_value is not None:
+            new_row["firstCommentTimeDiff"] = fill_value
+
+        if all(value not in (None, "") for value in new_row.values()):
+            cleaned_rows.append(new_row)
+
+    return cleaned_rows, fill_value, len(rows) - len(cleaned_rows)
 
 def main():
     # 讀取三個 JSON 檔案
@@ -46,7 +84,9 @@ def main():
     comment_fields = [k for k in sample_comment.keys() if k not in comment_exclude_fields]
 
     # 組合所有 CSV 欄位
-    csv_fields = post_fields + author_csv_fields + comment_fields
+    all_csv_fields = post_fields + author_csv_fields + comment_fields
+    csv_fields = [field for field in all_csv_fields if field not in RATIO_FIELDS]
+    new_csv_fields = [field for field in all_csv_fields if field not in RATIO_REPLACED_FIELDS]
 
     # 逐筆合併資料
     rows = []
@@ -71,14 +111,29 @@ def main():
 
         rows.append(row)
 
-    # 寫入 CSV
+    rows, first_comment_fill_value, dropped_rows = fill_first_comment_time_diff_and_drop_missing(rows)
+
+    # 寫入原始特徵 CSV：保留絕對數值欄位，不包含新增比例欄位
     with open(OUTPUT_FEAT_FILE, "w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=csv_fields)
         writer.writeheader()
-        writer.writerows(rows)
+        for row in rows:
+            writer.writerow({field: row.get(field) for field in csv_fields})
 
     print(f"已成功產出特徵 CSV 檔案：{OUTPUT_FEAT_FILE}")
     print(f"共 {len(rows)} 筆資料，{len(csv_fields)} 個欄位")
+
+    # 寫入比例特徵 CSV：用比例欄位取代對應的絕對數值欄位
+    with open(OUTPUT_NEW_FEAT_FILE, "w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=new_csv_fields)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({field: row.get(field) for field in new_csv_fields})
+
+    print(f"已成功產出比例特徵 CSV 檔案：{OUTPUT_NEW_FEAT_FILE}")
+    print(f"共 {len(rows)} 筆資料，{len(new_csv_fields)} 個欄位")
+    print(f"firstCommentTimeDiff 補值：{first_comment_fill_value}")
+    print(f"移除含缺失值的資料列：{dropped_rows}")
 
     # 寫入 dcard_name.csv (儲存文章基本資訊)
     name_fields = ["id", "articleId", "title", "content", "createdAt"]

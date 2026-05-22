@@ -92,10 +92,16 @@ def main():
             item["content"] = true_content
 
         # 文本資訊
-        text_len = len(true_content)
+        text_without_whitespace = re.sub(r"\s+", "", true_content)
+        text_len = len(text_without_whitespace)
+        if text_len == 0:
+            print(f"找到去除空白後沒有實質內文的文章，ID: {post_id}")
+            continue
         item["wordCount"] = text_len
         item["lfFreq"] = true_content.count("\n") / text_len
-        item["emojiCount"] = len(emoji.emoji_list(true_content))
+        emoji_count = len(emoji.emoji_list(true_content))
+        item["emojiCount"] = emoji_count
+        item["emojiPerWord"] = emoji_count / text_len
 
         # 計算 image 和 video 數量
         media_meta = post.get("mediaMeta")
@@ -142,6 +148,8 @@ def main():
 
         item["linksCount"] = link_count
         item["utmLinksCount"] = utm_link_count
+        item["linkPerWord"] = link_count / text_len
+        item["utmLinkRatio"] = utm_link_count / link_count if link_count > 0 else 0
 
         # 擷取作者資訊
         author = post.get("author", {})

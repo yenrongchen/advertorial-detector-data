@@ -15,6 +15,7 @@
 ├── README.md                  ← 說明文件 (You are here)
 ├── outputs/                   
 │   ├── data.csv               ← 整合後的特徵資料 (模型輸入資料)
+│   ├── data_new.csv           ← 新版整合後的特徵資料 (新版模型輸入資料)
 │   └── dcard_name.csv         ← 文章資訊彙整
 ├── posts/                     ← 存放文章文字檔的資料夾
 ├── raw_data/                  ← 存放爬取的原始資料
@@ -67,5 +68,5 @@
 2. 在自動開啟的瀏覽器進入 Dcard，登入 (如果未登入)，再前往旅遊板 (或任意想爬的板)
 3. 執行
    ```
-   python crawl_name.py
+   python crawl.py
    ```

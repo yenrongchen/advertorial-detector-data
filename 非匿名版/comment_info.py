@@ -175,16 +175,25 @@ def main():
             total_comment_count = dir_com_count + sub_com_count
 
             if first_main_comment_time and dt_post:
-                time_diff = round((first_main_comment_time - dt_post).total_seconds() / 60, 8)
+                time_diff = (first_main_comment_time - dt_post).total_seconds() / 60
             else:
                 time_diff = None
 
             if total_comment_count > 0:
-                sub_depth = round(sub_com_count / total_comment_count, 8)
-                ratio_30m = round(comments_within_30_mins / total_comment_count, 8)
+                sub_depth = sub_com_count / total_comment_count
+                ratio_30m = comments_within_30_mins / total_comment_count
+                author_reply_ratio = author_replies / total_comment_count
             else:
                 sub_depth = 0
                 ratio_30m = 0
+                author_reply_ratio = 0
+
+            author_reply_link_ratio = (
+                author_reply_links / author_replies if author_replies > 0 else 0
+            )
+            author_reply_utm_link_ratio = (
+                author_reply_utmlinks / author_reply_links if author_reply_links > 0 else 0
+            )
 
             all_comments_info.append({
                 "id": post_id,
@@ -194,6 +203,9 @@ def main():
                 "authorReplyCount": author_replies,
                 "authorReplyLinkCount": author_reply_links, 
                 "authorReplyUTMLinkCount": author_reply_utmlinks,
+                "authorReplyRatio": author_reply_ratio,
+                "authorReplyLinkRatio": author_reply_link_ratio,
+                "authorReplyUTMLinkRatio": author_reply_utm_link_ratio,
                 "firstCommentTimeDiff": time_diff,
                 "first30MinCommentRatio": ratio_30m,
             })
