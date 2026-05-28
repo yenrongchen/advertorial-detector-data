@@ -15,6 +15,9 @@
 * `linksCount`: 外部連結數量
 * `utmLinksCount`: 帶有 UTM 參數的外部連結數量
 * `emojiCount`: Emoji 頻率
+* `linkPerWord`: 外部連結數量 / 文章字數
+* `utmLinkRatio`: 帶有 UTM 參數的外部連結數量 / 外部連結數量
+* `emojiPerWord`: Emoji 數量 / 文章字數
 * `withImages`: 是否包含圖片
 * `withVideos`: 是否包含影片
 * `imageCount`: 圖片數量
@@ -22,12 +25,31 @@
 * `imageTextRatio`: 圖片文字比例 (每千字)
 * `videoTextRatio`: 影片文字比例 (每千字)
 * `mediaTextRatio`: 媒體文字比例 (每千字)
-* 情緒特徵
-* 特定標點符號頻率
-* 特定促購或商業意圖詞彙詞彙頻率 
-  * 例：CTA 詞彙、折扣詞、推銷詞、推薦詞、營造急迫感詞彙等
-  * 建議一個種詞彙一個特徵
-  * 建議從 [post_info.json](outputs/post_info.json) 裡面的 content 找，因為是已經有處理過缺失值的內文
+* `text_length`: 文字長度
+* `expected_sentiment_value`: 情緒期望值
+* `sentiment_volatility`: 情緒波動度
+
+
+### 促購詞與語意特徵
+* `cat_freq_cta_click`: CTA、導流或要求讀者採取行動的詞彙頻率
+* `cat_freq_promotion`: 優惠、折扣、團購或促銷相關詞彙頻率
+* `cat_freq_urgency`: 強烈推薦、急迫感或購買誘因相關詞彙頻率
+* `cat_freq_disclosure`: 合作、贊助、體驗或商業揭露相關詞彙頻率
+* `cat_freq_platform_brand`: 旅遊平台、電商平台、品牌或商業服務相關詞彙頻率
+* `cat_freq_recommendation`: 明確推薦語氣相關詞彙頻率
+* `cat_freq_lottery`: 抽獎或互動增粉相關詞彙頻率
+
+
+### 留言特徵
+* `authorReplyCount`: 作者回覆數量 (含主留言及子留言)
+* `authorReplyLinkCount`: 作者回覆內的外部連結數量
+* `authorReplyUTMLinkCount`: 作者回覆內的帶有 UTM 參數的外部連結數量
+* `authorReplyRatio`: 作者回覆數量 / 總留言數
+* `authorReplyLinkRatio`: 作者回覆內的外部連結數量 / 作者回覆數量
+* `authorReplyUTMLinkRatio`: 作者回覆內帶有 UTM 參數的外部連結數量 / 作者回覆內的外部連結數量
+* `subcomDepth`: 平均子留言深度 (子留言數量 / 主留言數量)
+* `firstCommentTimeDiff`: 第一個主留言的時間和發文時間的時間差
+* `first30MinCommentRatio`: 前 30 分鐘內的主、子留言佔總留言比例
 
 
 ### 作者資訊
@@ -35,15 +57,6 @@
 * `authorHasCreatorBadge`: 發文者是否有創作者勳章
 * `authorHasOfficialCreatorBadge`: 發文者是否有官方創作者勳章
 * `authorSuspicious`: 是不是可疑帳號
-
-
-### 留言特徵
-* `authorReplyCount`: 作者回覆數量 (含主留言及子留言)
-* `authorReplyLinkCount`: 作者回覆內的外部連結數量
-* `authorReplyUTMLinkCount`: 作者回覆內的帶有 UTM 參數的外部連結數量
-* `subcomDepth`: 平均子留言深度 (子留言數量 / 主留言數量)
-* `firstCommentTimeDiff`: 第一個主留言的時間和發文時間的時間差
-* `first30MinCommentRatio`: 前 30 分鐘內的主、子留言佔總留言比例
 
 
 ### 作者資訊及行為特徵
