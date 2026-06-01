@@ -25,7 +25,7 @@
 * `imageTextRatio`: 圖片文字比例 (每千字)
 * `videoTextRatio`: 影片文字比例 (每千字)
 * `mediaTextRatio`: 媒體文字比例 (每千字)
-* `text_length`: 文字長度
+* `text_length`: 純文字長度
 * `expected_sentiment_value`: 情緒期望值
 * `sentiment_volatility`: 情緒波動度
 

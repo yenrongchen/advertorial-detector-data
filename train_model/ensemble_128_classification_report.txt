@@ -1,0 +1,14 @@
+Model: XGBoost, LightGBM, SVM
+Best threshold: 0.468151
+Accuracy: 0.915099
+AUC: 0.897987
+Macro-F1: 0.788040
+
+              precision    recall  f1-score   support
+
+           F     0.9389    0.9658    0.9521      1813
+           T     0.7019    0.5615    0.6239       260
+
+    accuracy                         0.9151      2073
+   macro avg     0.8204    0.7637    0.7880      2073
+weighted avg     0.9092    0.9151    0.9110      2073

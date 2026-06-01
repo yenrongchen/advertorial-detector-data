@@ -1,0 +1,33 @@
+Best model: svm
+Best threshold: 0.355344
+Accuracy: 0.912205
+AUC: 0.887097
+Macro-F1: 0.788648
+
+Best parameters:
+  classifier: SVC
+  C: 0.1
+  class_weight: balanced
+  coef0: 1.0
+  degree: 2
+  gamma: 0.01
+  kernel: poly
+  scaler: StandardScaler
+
+Model comparison:
+             family  threshold  accuracy      auc  macro_f1
+                svm   0.355344  0.912205 0.887097  0.788648
+                xgb   0.466146  0.911240 0.878068  0.782450
+               lgbm   0.460343  0.904486 0.872692  0.765897
+logistic_regression   0.364960  0.894838 0.875058  0.760324
+      random_forest   0.453935  0.891462 0.861039  0.743702
+
+Classification report:
+              precision    recall  f1-score   support
+
+           F     0.9420    0.9586    0.9502      1813
+           T     0.6711    0.5885    0.6270       260
+
+    accuracy                         0.9122      2073
+   macro avg     0.8065    0.7735    0.7886      2073
+weighted avg     0.9080    0.9122    0.9097      2073
