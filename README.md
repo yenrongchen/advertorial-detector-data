@@ -1,1 +1,1 @@
-# Advertorial_Detector
+# advertorial-detector-data
